@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sims.mapper.StudentMapper">
+	<resultMap id="BaseResultMap" type="com.sims.model.Student">
+		<id column="stuId" property="stuid" jdbcType="INTEGER" />
+		<result column="stuNo" property="stuno" jdbcType="VARCHAR" />
+		<result column="stuName" property="stuname" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="gradeId" property="gradeid" jdbcType="INTEGER" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="stuDesc" property="studesc" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		stuId, stuNo, stuName, sex, birthday, gradeId, email, stuDesc
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_student
+		where stuId = #{stuid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_student
+		where stuId = #{stuid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.sims.model.Student">
+		insert into t_student (stuId, stuNo, stuName,
+		sex, birthday, gradeId,
+		email, stuDesc)
+		values (#{stuid,jdbcType=INTEGER}, #{stuno,jdbcType=VARCHAR},
+		#{stuname,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{gradeid,jdbcType=INTEGER},
+		#{email,jdbcType=VARCHAR}, #{studesc,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sims.model.Student">
+		insert into t_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="stuid != null">
+				stuId,
+			</if>
+			<if test="stuno != null">
+				stuNo,
+			</if>
+			<if test="stuname != null">
+				stuName,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="gradeid != null">
+				gradeId,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="studesc != null">
+				stuDesc,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="stuid != null">
+				#{stuid,jdbcType=INTEGER},
+			</if>
+			<if test="stuno != null">
+				#{stuno,jdbcType=VARCHAR},
+			</if>
+			<if test="stuname != null">
+				#{stuname,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="gradeid != null">
+				#{gradeid,jdbcType=INTEGER},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="studesc != null">
+				#{studesc,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sims.model.Student">
+		update t_student
+		<set>
+			<if test="stuno != null">
+				stuNo = #{stuno,jdbcType=VARCHAR},
+			</if>
+			<if test="stuname != null">
+				stuName = #{stuname,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="gradeid != null">
+				gradeId = #{gradeid,jdbcType=INTEGER},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="studesc != null">
+				stuDesc = #{studesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where stuId = #{stuid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sims.model.Student">
+		update t_student
+		set stuNo = #{stuno,jdbcType=VARCHAR},
+		stuName = #{stuname,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=VARCHAR},
+		birthday = #{birthday,jdbcType=DATE},
+		gradeId = #{gradeid,jdbcType=INTEGER},
+		email = #{email,jdbcType=VARCHAR},
+		stuDesc = #{studesc,jdbcType=VARCHAR}
+		where stuId = #{stuid,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectAllByPage" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_student a
+	</select>
+</mapper>

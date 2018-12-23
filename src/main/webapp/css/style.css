@@ -1,0 +1,130 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+select {
+    font-size: 11px;
+    font-family:"微软雅黑","宋体";
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background:url(../images/background.png) no-repeat center center fixed;
+    background-size: 100% 100%;
+}
+.hidden {
+    display: none;
+}
+a {
+    text-decoration: none;
+    color: #fff;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background-color: rgb(18, 19, 16) !important;
+    background-image: none !important;
+    color: rgb(0, 0, 0) !important;
+} 
+
+.login_box{
+	width:300px;
+	height:300px; 
+	background:url(../images/password.png) no-repeat center center;
+	border-radius:16px;
+}
+.login_box_title{
+	width:300px;
+	height:90px;
+	line-height:110px;
+	font-size:28px;
+	color:white;
+}
+.login_box_input{
+	width:300px;
+	height:50px;
+	margin: 10px 0;
+	padding: 0;
+	position: relative;
+}
+.login_box_input label{
+	width:34px;
+	height:48px;
+	margin-left:-10px;
+	line-height:48px;
+	text-align:right;
+	color:white;
+	font-size:22px;
+	cursor: pointer;
+	vertical-align:middle; 
+}
+.login_box_input input{
+    height: 36px;
+    width: 170px;
+    line-height: 36px;
+    border: 0px;
+    font-size: 16px;
+    outline:none;
+	border:none;
+    border-radius:5px;
+	text-indent:1em
+}
+.login_box_botom{
+	height: 36px;
+	width: 180px;
+	margin-left: 26px;
+}
+
+.login_box_botom input{
+	height: 36px;
+	width: 84px;
+	border-radius: 5px;
+	border: 1px solid white;
+	color:white;
+	font-size:22px;
+	background-color:#40426a;
+	cursor: pointer;
+}
+.login_box_botom input:HOVER{
+	box-shadow:0px 0px  5px 5px #aaa;
+}
+
+.login_box_msg{
+	height: 20px;
+	width: 160px;
+	margin-top:10px;
+	line-height:20px;
+	font-size:16px;
+	color:red;
+}
+
+
+.input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #737373;
+}
+
+

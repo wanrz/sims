@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.yun</groupId>
-  <artifactId>sims</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>sims Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sims</groupId>
+	<artifactId>sims</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring Maven Webapp</name>
+	<url>http://maven.apache.org</url>
 
 	<dependencies>
 		<!-- 添加Servlet支持 -->
@@ -161,6 +161,12 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.5</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -225,6 +231,48 @@
 			<version>1.0.16</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.49</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.xmemcached</groupId>
+			<artifactId>xmemcached</artifactId>
+			<version>2.0.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.simple-spring-memcached</groupId>
+			<artifactId>xmemcached-provider</artifactId>
+			<version>3.5.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<!-- 添加jsoup支持 -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -232,6 +280,13 @@
 			<version>1.8.3</version>
 		</dependency>
 		
+		<!-- 添加分页插件支持 -->
+		<dependency>
+		     <groupId>com.github.pagehelper</groupId>
+		     <artifactId>pagehelper</artifactId>
+		     <version>4.1.4</version>
+		 </dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -242,25 +297,4 @@
 	<build>
 		<finalName>sims</finalName>
 	</build>
-	
-	<repositories>
-		<repository>
-			<id>deployment</id>
-			<name>deployment123</name>
-			<!-- <url>http://nexus1.yc:30081/nexus/content/groups/public</url> -->
-			<url>http://nexus.cloudwalk.work/nexus/content/groups/public</url>
-			<releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases> 
-			<snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots> 
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>deployment</id>
-			<name>deployment123</name>
-			<!-- <url>http://nexus1.yc:30081/nexus/content/groups/public</url> -->
-			<url>http://nexus.cloudwalk.work/nexus/content/groups/public</url>
-			<releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases> 
-			<snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots> 
-		</pluginRepository>
-	</pluginRepositories>
 </project>

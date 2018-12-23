@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sims.mapper.GradeMapper" >
+  <resultMap id="BaseResultMap" type="com.sims.model.Grade" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gradeName" property="gradename" jdbcType="VARCHAR" />
+    <result column="gradeDesc" property="gradedesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gradeName, gradeDesc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_grade
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_grade
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sims.model.Grade" >
+    insert into t_grade (id, gradeName, gradeDesc
+      )
+    values (#{id,jdbcType=INTEGER}, #{gradename,jdbcType=VARCHAR}, #{gradedesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sims.model.Grade" >
+    insert into t_grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="gradename != null" >
+        gradeName,
+      </if>
+      <if test="gradedesc != null" >
+        gradeDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gradename != null" >
+        #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="gradedesc != null" >
+        #{gradedesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sims.model.Grade" >
+    update t_grade
+    <set >
+      <if test="gradename != null" >
+        gradeName = #{gradename,jdbcType=VARCHAR},
+      </if>
+      <if test="gradedesc != null" >
+        gradeDesc = #{gradedesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sims.model.Grade" >
+    update t_grade
+    set gradeName = #{gradename,jdbcType=VARCHAR},
+      gradeDesc = #{gradedesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectAllByPage" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_grade a
+  </select>
+</mapper>
