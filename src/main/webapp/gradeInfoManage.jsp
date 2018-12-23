@@ -33,9 +33,9 @@
 		var ids=strIds.join(",");
 		$.messager.confirm("系统提示","您确认要删掉这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
 			if(r){
-				$.post("gradeDelete",{delIds:ids},function(result){
+				$.post("${pageContext.request.contextPath}/grade/gradeDelete",{delIds:ids},function(result){
 					if(result.success){
-						$.messager.alert("系统提示","您已成功删除<font color=red>"+result.delNums+"</font>条数据！");
+						$.messager.alert("系统提示","您已成功删除<font color=red>"+result.total+"</font>条数据！");
 						$("#dg").datagrid("reload");
 					}else{
 						$.messager.alert('系统提示','<font color=red>'+selectedRows[result.errorIndex].gradename+'</font>'+result.errorMsg);
@@ -48,7 +48,7 @@
 	
 	function openGradeAddDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","添加班级信息");
-		url="gradeSave";
+		url="${pageContext.request.contextPath}/grade/gradeSave";
 	}
 	
 	function openGradeModifyDialog(){
@@ -60,7 +60,7 @@
 		var row=selectedRows[0];
 		$("#dlg").dialog("open").dialog("setTitle","编辑班级信息");
 		$("#fm").form("load",row);
-		url="gradeSave?id="+row.id;
+		url="${pageContext.request.contextPath}/grade/gradeUpdate";
 	}
 	
 	function closeGradeDialog(){
@@ -69,6 +69,7 @@
 	}
 	
 	function resetValue(){
+		$("#id").val("");
 		$("#gradename").val("");
 		$("#gradedesc").val("");
 	}
@@ -81,7 +82,7 @@
 				return $(this).form("validate");
 			},
 			success:function(result){
-				if(result.errorMsg){
+				if(result.message){
 					$.messager.alert("系统提示",result.errorMsg);
 					return;
 				}else{
@@ -123,6 +124,9 @@
 		closed="true" buttons="#dlg-buttons">
 		<form id="fm" method="post">
 			<table>
+				<tr>
+					<td><input type="hidden" name="id" id="id"/></td>
+				</tr>
 				<tr>
 					<td>班级名称：</td>
 					<td><input type="text" name="gradename" id="gradename" class="easyui-validatebox" required="true"/></td>

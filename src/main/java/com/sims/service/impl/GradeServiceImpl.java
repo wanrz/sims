@@ -20,4 +20,19 @@ public class GradeServiceImpl implements GradeService {
 		return gradeMapper.selectAllByPage(map);
 	}
 
+	@Override
+	public int insert(Grade record) {
+		return gradeMapper.insert(record);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		return gradeMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateByPrimaryKey(Grade record) {
+		return gradeMapper.updateByPrimaryKey(record);
+	}
+
 }
