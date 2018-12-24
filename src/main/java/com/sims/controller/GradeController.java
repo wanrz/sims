@@ -1,5 +1,6 @@
 package com.sims.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class GradeController extends BaseController {
 		// 返回结果
 		String retJson = "";
 		// 设置参数信息
-		String gradename = request.getParameter("gradeName");
+		String gradename = request.getParameter("gradename");
 		if (gradename == null) {
 			gradename = "";
 		}
@@ -51,6 +52,25 @@ public class GradeController extends BaseController {
 		retJson = JsonUtil.toJSON(result);
 		this.getPrintWriter(response, retJson);
 	}
+	
+	@RequestMapping("/gradeComboList")
+	public void gradeComboList(HttpServletRequest request, HttpServletResponse response, Grade record) {
+		// 返回结果
+		String retJson = "";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("obj", record);
+		// 设置分页查询
+		List<Grade> list = this.gradeService.selectGradeByPage(map);
+		Grade grade=new Grade();
+		grade.setId(0);
+		grade.setGradename("请选择...");
+		list.add(grade);
+		Collections.sort(list); // 按年龄排序
+		// 设置返回结果
+		retJson = JsonUtil.toJSON(list);
+		this.getPrintWriter(response, retJson);
+	}
+	
 	
 	@RequestMapping("/gradeSave")
 	public void gradeSave(HttpServletRequest request, HttpServletResponse response, Grade record) {

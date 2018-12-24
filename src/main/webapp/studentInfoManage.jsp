@@ -140,7 +140,7 @@
 				<th field="sex" width="100" align="center">性别</th>
 				<th field="birthday" width="100" align="center" formatter="dateFormatter" >出生日期</th>
 				<th field="gradeid" width="100" align="center" hidden="true">班级ID</th>
-				<th field="gradeName" width="100" align="center">班级名称</th>
+				<th field="gradename" width="100" align="center">班级名称</th>
 				<th field="email" width="150" align="center">Email</th>
 				<th field="studesc" width="250" align="center">学生备注</th>
 			</tr>
@@ -161,7 +161,7 @@
 			<option value="女">女</option>
 		</select>
 		&nbsp;出生日期：&nbsp;<input class="easyui-datebox" name="s_bbirthday" id="s_bbirthday" editable="false" size="10"/>-><input class="easyui-datebox" name="s_ebirthday" id="s_ebirthday" editable="false" size="10"/>
-		&nbsp;所属班级：&nbsp;<input class="easyui-combobox" id="s_gradeid" name="s_gradeid" size="10" data-options="panelHeight:'auto',editable:false,valueField:'id',textField:'gradeName',url:'gradeComboList'"/>
+		&nbsp;所属班级：&nbsp;<input class="easyui-combobox" id="s_gradeid" name="s_gradeid" size="10" data-options="panelHeight:'auto',editable:false,valueField:'id',textField:'gradename',url:'${pageContext.request.contextPath}/grade/gradeComboList'"/>
 		    
 		<a href="javascript:searchStudent()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a></div>
 	</div>
@@ -179,7 +179,7 @@
 				</tr>
 				<tr>
 					<td>性别：</td>
-					<td><select class="easyui-combobox" id="sex" name="sex" editable="false" panelHeight="auto" style="width: 155px">
+					<td><select class="easyui-combobox" id="sex" name="sex" editable="false" panelHeight="auto" style="width: 173px">
 					    <option value="">请选择...</option>
 						<option value="男">男</option>
 						<option value="女">女</option>
@@ -190,7 +190,7 @@
 				</tr>
 				<tr>
 					<td>班级名称：</td>
-					<td><input class="easyui-combobox" id="gradeid" name="gradeid"  data-options="panelHeight:'auto',editable:false,valueField:'id',textField:'gradeName',url:'gradeComboList'"/></td>
+					<td><input class="easyui-combobox" id="gradeid" name="gradeid"  data-options="panelHeight:'auto',editable:false,valueField:'id',textField:'gradename',url:'${pageContext.request.contextPath}/grade/gradeComboList'"/></td>
 					<td></td>
 					<td>Email：</td>
 					<td><input type="text" name="email" id="email" class="easyui-validatebox" required="true" validType="email"/></td>

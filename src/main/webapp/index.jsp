@@ -19,7 +19,7 @@
 </script>
 </head>
 <body>
-	<div align="center" style="padding-top: 150px;">
+	<div align="center" style="padding-top: 15%;">
 		<form action="${pageContext.request.contextPath}/login/in" method="post">
 			<div class="login_box">
 				<div class="login_box_title">

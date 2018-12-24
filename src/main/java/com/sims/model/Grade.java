@@ -1,6 +1,6 @@
 package com.sims.model;
 
-public class Grade {
+public class Grade implements Comparable<Grade> {
     private Integer id;
 
     private String gradename;
@@ -30,4 +30,9 @@ public class Grade {
     public void setGradedesc(String gradedesc) {
         this.gradedesc = gradedesc == null ? null : gradedesc.trim();
     }
+
+	@Override
+	public int compareTo(Grade o) {
+		return this.id - o.getId();
+	}
 }
