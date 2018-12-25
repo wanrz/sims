@@ -1,5 +1,10 @@
 package com.sims.mapper;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.dao.DataAccessException;
+
 import com.sims.model.User;
 
 public interface UserMapper {
@@ -18,4 +23,6 @@ public interface UserMapper {
 	User login(User user);
 	
 	User findById(String id);
+	
+	List<User> selectAllByPage(Map<String, Object> map) throws DataAccessException; // 分页查询用户信息功能
 }

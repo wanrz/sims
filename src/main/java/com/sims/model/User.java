@@ -1,11 +1,13 @@
 package com.sims.model;
 
-public class User {
+public class User implements Comparable<User>  {
     private Integer id;
 
     private String username;
 
     private String password;
+    
+    private String picture;
 
     public Integer getId() {
         return id;
@@ -30,4 +32,17 @@ public class User {
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
     }
+    
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	@Override
+	public int compareTo(User o) {
+		return this.id - o.getId();
+	}
 }

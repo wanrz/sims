@@ -22,8 +22,13 @@
 	$(function(){
 		// 数据
 		var treeData=[{
-			text:"根",
+			text:"菜单",
 			children:[{
+				text:"用户信息管理",
+				attributes:{
+					url:"userInfoManage.jsp"
+				}
+			},{
 				text:"班级信息管理",
 				attributes:{
 					url:"gradeInfoManage.jsp"
@@ -49,11 +54,11 @@
 		
 		// 新增Tab
 		function openTab(text,url){
-			if($("#tabs").tabs('exists',text)){
-				$("#tabs").tabs('select',text);
+			if($("#layout_center_tabs").tabs('exists',text)){
+				$("#layout_center_tabs").tabs('select',text);
 			}else{
 				var content="<iframe frameborder='0' scrolling='auto' style='width:100%;height:100%' src="+url+"></iframe>";
-				$("#tabs").tabs('add',{
+				$("#layout_center_tabs").tabs('add',{
 					title:text,
 					closable:true,
 					content:content
@@ -62,6 +67,16 @@
 		}
 	});
 </script>
+<script type="text/javascript">
+    $(function () {
+        $("#refresh").text("刷新");
+        $("#close").text("关闭");
+        $("#closeother").text("关闭其他");
+        $("#closeall").text("关闭所有");
+    });
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/center.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js" charset="utf-8"></script>
 </head>
 <body class="easyui-layout">
 	<div region="north" style="height: 80px;background-color: #E0EDFF">
@@ -70,10 +85,17 @@
 		
 	</div>
 	<div region="center">
-		<div class="easyui-tabs" fit="true" border="false" id="tabs">
+		<div class="easyui-tabs" fit="true" border="false" id="layout_center_tabs">
 			<div title="首页" >
 				<div align="center" style="padding-top: 100px;"><font color="red" size="10">欢迎使用</font></div>
 			</div>
+		</div>
+		<div id="layout_center_tabsMenu">
+			<div type="refresh" id="refresh"></div>
+			<div class="menu-sep"></div>
+			<div type="close" id="close"></div>
+			<div type="closeOther" id="closeother"></div>
+			<div type="closeAll" id="closeall"></div>
 		</div>
 	</div>
 	<div region="west" style="width: 150px;" title="导航菜单" split="true">

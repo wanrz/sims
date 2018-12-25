@@ -1,5 +1,8 @@
 package com.sims.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +27,27 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public User findById(String id) {
-		User user = user=userMapper.findById(id);
-		return user;
+		return userMapper.findById(id);
+	}
+
+	@Override
+	public int insert(User record) {
+		return userMapper.insert(record);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		return userMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateByPrimaryKey(User record) {
+		return userMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public List<User> selectUserByPage(Map<String, Object> map) {
+		return userMapper.selectAllByPage(map);
 	}
 
 }

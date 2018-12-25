@@ -69,9 +69,14 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-    <select id="selectAllByPage" parameterType="map" resultMap="BaseResultMap">
+   <select id="selectAllByPage" parameterType="map" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM t_grade a
+    <where>
+	    <if test="obj.gradename != null and obj.gradename != ''" >
+         a.gradeName = #{obj.gradename,jdbcType=VARCHAR} 
+      	</if>
+    </where>
   </select>
 </mapper>

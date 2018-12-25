@@ -5,9 +5,10 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userName" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userName, password
+    id, userName, password,picture
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,9 +21,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.sims.model.User" >
-    insert into t_user (id, userName, password
+    insert into t_user (id, userName, password,picture
       )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sims.model.User" >
@@ -37,6 +38,9 @@
       <if test="password != null" >
         password,
       </if>
+      <if test="picture != null" >
+        picture,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -47,6 +51,9 @@
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -59,21 +66,36 @@
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sims.model.User" >
     update t_user
     set userName = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR},
+      picture = #{picture,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  	  <select id="login" parameterType="User" resultType="User">
+  	<select id="login" parameterType="User" resultType="User">
 		select * from t_user where userName=#{username} and password=#{password}
 	</select>
 	
 	<select id="findById" parameterType="java.lang.String" resultType="User">
 		select * from t_user where id=#{id,jdbcType=INTEGER}
 	</select>
+	
+	<select id="selectAllByPage" parameterType="map" resultMap="BaseResultMap">
+    	SELECT
+    	<include refid="Base_Column_List" />
+	    FROM t_user a 
+	    <where>
+		    <if test="obj.username != null and obj.username != ''" >
+	         a.userName = #{obj.username,jdbcType=VARCHAR} 
+	      	</if>
+	    </where>
+	  </select>
 </mapper>
