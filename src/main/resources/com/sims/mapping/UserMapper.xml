@@ -88,6 +88,10 @@
 		select * from t_user where id=#{id,jdbcType=INTEGER}
 	</select>
 	
+	<select id="findByUserName" parameterType="java.lang.String" resultType="User">
+		select * from t_user where userName=#{username,jdbcType=VARCHAR}
+	</select>
+	
 	<select id="selectAllByPage" parameterType="map" resultMap="BaseResultMap">
     	SELECT
     	<include refid="Base_Column_List" />

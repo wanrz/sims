@@ -8,12 +8,12 @@
 <link href="http://blog.java1234.com/favicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/themes/icon.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-plugin/jquery_image_upload.js" charset="utf-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-plugin/jquery.cookie.js" charset="utf-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-plugin/jquery.form.js" charset="utf-8"></script>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-plugin/jquery_image_upload.js" charset="utf-8"></script> --%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/fileupload/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/fileupload/jquery.fileupload.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/fileupload/jquery.iframe-transport.js"></script>
@@ -69,6 +69,13 @@
 		});
 	}
 	
+	function refreshUser(){
+		$('#s_username').val('');
+		$('#dg').datagrid('load',{
+			username:$('#s_username').val()
+		});
+	}
+	
 	function deleteUser(){
 		var selectedRows=$("#dg").datagrid('getSelections');
 		if(selectedRows.length==0){
@@ -110,6 +117,10 @@
 		$("#dlg").dialog("open").dialog("setTitle","编辑用户信息");
 		$("#fm").form("load",row);
 		url="${pageContext.request.contextPath}/user/userUpdate";
+		var value=$("#picture").val();
+		if(value!=""){
+			$("#previewImg_user_edit").attr("src","${pageContext.request.contextPath}/user/getFile?fileUrl="+value+"");
+		}
 	}
 	
 	function closeUserDialog(){
@@ -118,11 +129,11 @@
 	}
 	
 	function resetValue(){
-		debugger;
 		$("#id").val("");
 		$("#username").val("");
 		$("#password").val("");
-// 		$("#user_feature_file_edit").val("");
+		$("#previewImg_user_edit").attr("src","${pageContext.request.contextPath}/images/upload.png");
+		$("#user_feature_file").val("");
 	}
 	
 	
@@ -133,7 +144,8 @@
 				return $(this).form("validate");
 			},
 			success:function(result){
-				if(result.message){
+				debugger;
+				if(result.errorMsg){
 					$.messager.alert("系统提示",result.errorMsg);
 					return;
 				}else{
@@ -198,7 +210,6 @@
 		$('#user_feature_file_edit').fileupload({
 	        dataType: 'json',  
 	        add: function (e, data) {
-	        	debugger;
 	        	//验证图片类型
 	        	if(!checkFileType(data.files[0].name)){
 	        		return;
@@ -225,14 +236,6 @@
 	}
 	
 	$(function() {
-		$(document).ready(function(){
-			var value=$("#picture").val();
-			if(value!=""){
-				$("#previewImg_user_edit").attr("src","${pageContext.request.contextPath}/user/getFile?fileUrl="+value+"");
-			}
-		});
-		
-		//初始化上传文件
 		$('#user_feature_file_edit').fileupload({
 	        dataType: 'json',  
 	        add: function (e, data) {
@@ -282,7 +285,10 @@
 			<a href="javascript:openUserModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
 			<a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
 		</div>
-		<div>&nbsp;用户名称：&nbsp;<input type="text" name="s_username" id="s_username"/><a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a></div>
+		<div>&nbsp;用户名称：&nbsp;<input type="text" name="s_username" id="s_username"/>
+		<a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
+		<a href="javascript:refreshUser()" class="easyui-linkbutton" iconCls="icon-refresh" plain="true">重置</a>
+		</div>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog" style="width: 400px;height: 280px;padding: 10px 20px"
@@ -292,6 +298,7 @@
 				<tr>
 					<td><input type="hidden" name="id" id="id"/></td>
 					<td><input type="hidden" id="user_feature_file" name="user_feature_file" value="" /></td>
+					<td><input type="hidden" id="picture" name="picture" value="" /></td>
 				</tr>
 				<tr id = "img_feature_field">
 <!-- 					<th align="right" > -->

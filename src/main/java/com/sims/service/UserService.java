@@ -16,6 +16,8 @@ public interface UserService {
 	User login(User user);
 
 	User findById(String id);
+	
+	User findByUserName(String username);
 
 	int insert(User record);
 

@@ -21,13 +21,19 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserMapper userMapper;
 	
-	
+	@Override
 	public User login(User user) {
 		return userMapper.login(user);
 	}
 
+	@Override
 	public User findById(String id) {
 		return userMapper.findById(id);
+	}
+	
+	@Override
+	public User findByUserName(String username) {
+		return userMapper.findByUserName(username);
 	}
 
 	@Override

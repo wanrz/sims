@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sims.common.JsonListResult;
@@ -93,22 +94,31 @@ public class UserController extends BaseController {
 	
 	@RequestMapping("/userSave")
 	public void userSave(HttpServletRequest request, HttpServletResponse response, User record) {
-		JsonListResult<User> result = new JsonListResult<User>();
 		// 返回结果
-		String retJson = "";
+		JSONObject result=new JSONObject();
 		String base64Img = "";
-		// 保存图片
-		base64Img = request.getParameter("user_feature_file");
-		if (StringUtils.isNotEmpty(base64Img)) {
-			String imgPath = saveImg(base64Img);
-			record.setPicture(imgPath);
+		//校验是否已存在
+		User user=userService.findByUserName(record.getUsername());
+		if(user==null){
+			// 保存图片
+			base64Img = request.getParameter("user_feature_file");
+			if (StringUtils.isNotEmpty(base64Img)) {
+				String imgPath = saveImg(base64Img);
+				record.setPicture(imgPath);
+			}
+			int res=this.userService.insert(record);
+			if(res<0){
+				result.put("success", "true");
+				result.put("errorMsg", "保存失败");
+			}else{
+				result.put("success", "true");
+			}
+		}else{
+			result.put("success", "true");
+			result.put("errorMsg", "用户已存在");
 		}
-		int res=this.userService.insert(record);
-		if(res<0){
-			result.setMessage("添加失败");
-		}
-		retJson = JsonUtil.toJSON(result);
-		this.getPrintWriter(response, retJson);
+		
+		this.getPrintWriter(response, result);
 	}
 	
 	@RequestMapping("/userUpdate")

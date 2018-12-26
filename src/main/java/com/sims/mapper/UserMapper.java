@@ -24,5 +24,7 @@ public interface UserMapper {
 	
 	User findById(String id);
 	
+	User findByUserName(String username);
+	
 	List<User> selectAllByPage(Map<String, Object> map) throws DataAccessException; // 分页查询用户信息功能
 }
