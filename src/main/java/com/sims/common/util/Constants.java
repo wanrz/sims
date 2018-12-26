@@ -221,7 +221,7 @@ public class Constants {
 		public static final String DOMAIN_WWW = IConfig.getProperty("domain.www");
 		public static final String FILE_STORAGE_WAY = IConfig.getProperty("file.storage.way");
 		public static final String IBIS_FILE_PATH = IConfig.getProperty("ibis.file.path");
-		
+		public static final String BIOLOGY_SIZE = IConfig.getProperty("file.biology.size");
 	}
 	
 }

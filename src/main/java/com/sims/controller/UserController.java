@@ -1,6 +1,8 @@
 package com.sims.controller;
 
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.net.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -20,10 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sims.common.JsonListResult;
+import com.sims.common.JsonResult;
 import com.sims.common.base.controller.BaseController;
 import com.sims.common.enums.EnumClass;
 import com.sims.common.util.Constants;
+import com.sims.common.util.ControllerUtil;
+import com.sims.common.util.ImgConvertByteArray;
 import com.sims.common.util.JsonUtil;
+import com.sims.common.util.UUIDUtil;
 import com.sims.common.util.file.FileUtils;
 import com.sims.model.User;
 import com.sims.service.UserService;
@@ -32,6 +39,9 @@ import com.sims.service.UserService;
 @RequestMapping("/user")
 public class UserController extends BaseController {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	private static final String FILE_SEPARATOR = "/";
+	
 	@Resource(name = "userService")
 	private UserService userService;
 
@@ -86,6 +96,13 @@ public class UserController extends BaseController {
 		JsonListResult<User> result = new JsonListResult<User>();
 		// 返回结果
 		String retJson = "";
+		String base64Img = "";
+		// 保存图片
+		base64Img = request.getParameter("user_feature_file");
+		if (StringUtils.isNotEmpty(base64Img)) {
+			String imgPath = saveImg(base64Img);
+			record.setPicture(imgPath);
+		}
 		int res=this.userService.insert(record);
 		if(res<0){
 			result.setMessage("添加失败");
@@ -99,8 +116,15 @@ public class UserController extends BaseController {
 		JsonListResult<User> result = new JsonListResult<User>();
 		// 返回结果
 		String retJson = "";
+		String base64Img = "";
 		String id=request.getParameter("id");
 		record.setId(Integer.parseInt(id));
+		// 保存图片
+		base64Img = request.getParameter("user_feature_file");
+		if (StringUtils.isNotEmpty(base64Img)) {
+			String imgPath = saveImg(base64Img);
+			record.setPicture(imgPath);
+		}
 		int res=this.userService.updateByPrimaryKey(record);
 		if(res<0){
 			result.setMessage("更新失败");
@@ -173,5 +197,59 @@ public class UserController extends BaseController {
 			logger.error(e.getMessage());
 		}
 		
+	}
+	
+	/**
+	 * 获取图片base64字符串
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("uploadImage")
+	public void uploadImage(HttpServletRequest request, HttpServletResponse response)  {
+		JsonResult resultEntity = ControllerUtil.uploadImage(request, response);	
+		getPrintWriter(response, JsonUtil.toJSON(resultEntity));
+	}
+	
+	
+	/**
+	 * 保存图片
+	 * 
+	 * @param imgData
+	 * @param path
+	 * @param imgName
+	 * @return
+	 */
+	public String saveImg(String base64Img) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DATE);
+		String path = FILE_SEPARATOR + year + FILE_SEPARATOR + month + FILE_SEPARATOR + day + FILE_SEPARATOR
+				+ UUIDUtil.getUUID() + ".jpg";
+		String imgUrl = Constants.Config.IBIS_FILE_PATH + path;
+		ImgConvertByteArray.byteArray2Img(decodeBase64(base64Img), imgUrl);
+		return path;
+	}
+	
+	/**
+	 * 对base64编码后的字符串进行反解
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static byte[] decodeBase64(String str) {
+		return Base64.decodeBase64(clearBase64String(str));
+	}
+	
+	/**
+	 * 将字节数组进行base64编码，然后替换换行和回车等字符
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String clearBase64String(String str) {
+		return str.replaceAll("\r\n", "").replaceAll("\r", "").replaceAll("\n", "").replaceAll("\\s", "+")
+				.replaceAll("\u003d", "=");
 	}
 }
