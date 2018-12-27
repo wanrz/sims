@@ -26,7 +26,7 @@
 		top: 43px;
 		padding: 2px 5px;
 		background: no-repeat,rgba(163, 133, 220, 1);
-		/**IE8下不支持rgba  用IE的filter **/
+		/**IE8下不支持rgba   用IE的filter **/
 		filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#A385DC,endcolorstr=#A385DC);
 		color: white;
 		cursor: pointer;
