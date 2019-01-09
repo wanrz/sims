@@ -1,0 +1,1 @@
+alter table t_user add COLUMN picture VARCHAR(256);
