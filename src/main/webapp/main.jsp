@@ -99,7 +99,7 @@
 		</div>
 	</div>
 	<div region="west" style="width: 150px;" title="导航菜单" split="true">
-		<ul id="tree"></ul>
+		<ul id="tree" checkbox="false"></ul>
 	</div>
 	<div region="south" style="height: 25px;" align="center">版权所有<a href="#">YCKJ091</a></div>
 </body>

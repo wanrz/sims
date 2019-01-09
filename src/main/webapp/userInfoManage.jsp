@@ -20,6 +20,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/fileupload/jquery.fileupload-validate.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/fileupload/jquery.xdr-transport.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/print.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.jqprint-0.3.js" charset="utf-8"></script>
+
 <style>
 	.image-list span {
 		position: absolute;
@@ -101,7 +104,6 @@
 		});
 	}
 	
-	
 	function openUserAddDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","添加用户信息");
 		url="${pageContext.request.contextPath}/user/userSave";
@@ -158,13 +160,6 @@
 		});
 	}
 	
-	function showImg(value, row, index){
-		if(typeof value == "undefined" || value == null || value == ""){
-			return "<span>无刷脸登录账号</span>";
-		}else{
-			return "<img style='width:100px;height:100px;' border='1' src='${pageContext.request.contextPath}/user/getFile?fileUrl="+value+"'/>";
-		}
-	}
 	
 	/**
 	 * 上传现场照片
@@ -261,8 +256,53 @@
 	        }
 	    });
 		$("#user_feature_file_edit").uploadPreviewVideo({ Img: "previewImg_user_edit", Width: 100, Height: 100 });
-
 	});
+	
+	// 定义到jQuery全局变量下-文件下载   ajax一般是用来请求服务端的数据，下载文件需要先从服务器获取文件请求路径，然后使用form表单提交的方法来实现文件的下载。
+	jQuery.download = function (url, method, fileUrl) {
+	  jQuery('<form action="' + url + '" method="' + (method || 'post') + '">' +  // action请求路径及推送方法
+	              '<input type="text" name="fileUrl" value="' + fileUrl + '"/>' + // 文件路径
+	          '</form>')
+	  .appendTo('body').submit().remove();
+	};
+	
+	function downloadPicture(index){
+		$('#dg').datagrid('selectRow', index);
+        var row = $('#dg').datagrid('getSelected');
+        if (row.picture != null && row.picture !== undefined)
+        $.download('${pageContext.request.contextPath}/file/download', 'post', row.picture); // 下载文件
+	}
+	
+	function showImg(value, row, index){
+		if(typeof value == "undefined" || value == null || value == ""){
+			return "<span>无刷脸登录账号</span>";
+		}else{
+			return "<a href='#' onclick='downloadPicture("+index+")'><img style='width:100px;height:100px;' border='1' src='${pageContext.request.contextPath}/user/getFile?fileUrl="+value+"'/></a>";
+		}
+	}
+	
+	 //转义
+    function rowformater(value, row, index) {
+    	var action = $("#operAction").html();
+    	action = action.replace(/{index}/g,index);
+    	return action;
+		 
+//         return "<div><a href='#' class='easyui-linkbutton' iconCls='icon-download' onclick='downloadPicture(" + index + ")'>下载</a>&nbsp;"
+//         +"<a href='#' onclick='showHsCode(" + index + ")'>显示路径</a></div>";          
+    }
+	 
+    function showHsCode(index) {
+        $('#dg').datagrid('selectRow', index);
+        var row = $('#dg').datagrid('getSelected');
+        if (row.picture != null && row.picture !== undefined)
+        	$.messager.alert("提示",row.picture);
+    }
+    
+    function print(){
+    	$("#user-box").jqprint();
+    	alert(1)
+    }
+
 </script>
 </head>
 <body style="margin: 5px;">
@@ -271,19 +311,33 @@
 		<thead>
 			<tr>
 				<th field="cb" checkbox="true"></th>
-				<th field="id" width="50">编号</th>
-				<th field="username" width="100">用户名称</th>
-				<th field="password" width="250">用户密码</th>
-				<th data-options="field:'picture',width:110, formatter:showImg" >头像</th>
+				<th field="id" width="10">编号</th>
+				<th data-options="field:'picture',width:10, formatter:showImg">头像</th>
+				<th field="username" width="30">用户名称</th>
+				<th field="password" width="30">用户密码</th>
+				<th data-options="field:'Id',width:20,formatter:rowformater,onClickRow:showHsCode">操作</th>
 			</tr>
 		</thead>
 	</table>
+	<div id="operAction">
+		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-download"  plain="true" onclick="downloadPicture('{index}');" resId="104109102">下载</a>
+		<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-system"  plain="true" onclick="showHsCode('{index}');" resId="104109103">显示路径</a>
+	</div>
 	
 	<div id="tb">
 		<div>
 			<a href="javascript:openUserAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
 			<a href="javascript:openUserModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
 			<a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+			<a href="javascript:downloadPicture(1)" class="easyui-linkbutton" iconCls="icon-download" plain="true">下载测试</a>
+			<input type ='button' value='普通打印' onclick='javascript:window.print()' />	
+			<a href="javascript:CreateFormPage('打印测试', $('#dg'))" class="easyui-linkbutton" iconCls="icon-print" plain="true">打印</a>
+			<a href="javascript:print()" class="easyui-linkbutton" iconCls="icon-print" plain="true">新打印</a>
+
+<!-- 			<object id="wb" classid="ClSID:8856F961-340A-11D0-A96B-00C04Fd705A2" width="0" height="0"></object>　　 -->
+<!-- 	        <input type ='button' value='打印' onclick='javascript:wb.ExecWB(6,1)'/> -->
+<!-- 	        <input type ='button' value='打印预览' onclick='javascript:wb.ExecWB(7,1)'/> -->
+<!-- 	        <input type ='button' value='页面设置' onclick='javascript:wb.ExecWB(8,1)'/> -->
 		</div>
 		<div>&nbsp;用户名称：&nbsp;<input type="text" name="s_username" id="s_username"/>
 		<a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
