@@ -273,11 +273,23 @@
         $.download('${pageContext.request.contextPath}/file/download', 'post', row.picture); // 下载文件
 	}
 	
+	function showPicture(index){
+		$('#dg').datagrid('selectRow', index);
+        var row = $('#dg').datagrid('getSelected');
+        if (row.picture != null && row.picture !== undefined)
+        $("#dd").dialog("open").dialog("setTitle","头像信息");
+        $('#showimg').attr("src", "${pageContext.request.contextPath}/user/getFile?fileUrl="+row.picture);
+	}
+	
+	function closePicture(){
+        $("#dd").dialog("close");
+	}
+	
 	function showImg(value, row, index){
 		if(typeof value == "undefined" || value == null || value == ""){
 			return "<span>无刷脸登录账号</span>";
 		}else{
-			return "<a href='#' onclick='downloadPicture("+index+")'><img style='width:100px;height:100px;' border='1' src='${pageContext.request.contextPath}/user/getFile?fileUrl="+value+"'/></a>";
+			return "<a href='#' onclick='showPicture("+index+")'><img style='width:100px;height:100px;' border='1' src='${pageContext.request.contextPath}/user/getFile?fileUrl="+value+"'/></a>";
 		}
 	}
 	
@@ -343,6 +355,10 @@
 		<a href="javascript:searchUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
 		<a href="javascript:refreshUser()" class="easyui-linkbutton" iconCls="icon-refresh" plain="true">重置</a>
 		</div>
+	</div>
+	
+	<div id="dd" class="easyui-dialog" style="width:1000px;height:500px;" closed="true" title="My Dialog" ondblclick="closePicture()" iconCls="icon-ok">
+	    <img id="showimg" style="width:100%;" src="${pageContext.request.contextPath}/user/getFile?fileUrl="+url+"' />
 	</div>
 	
 	<div id="dlg" class="easyui-dialog" style="width: 400px;height: 280px;padding: 10px 20px"
