@@ -38,6 +38,11 @@
 				attributes:{
 					url:"studentInfoManage.jsp"
 				}
+			},{
+				text:"ECharts图表",
+				attributes:{
+					url:"echarts.jsp"
+				}
 			}]
 		}];
 		
