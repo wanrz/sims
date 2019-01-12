@@ -22,37 +22,59 @@
 	$(function(){
 		// 数据
 		var treeData=[{
-			text:"菜单",
+			text:"系统模块",
 			children:[{
 				text:"用户信息管理",
-				attributes:{
-					url:"userInfoManage.jsp"
-				}
+				children:[{
+					text:"用户信息管理",
+					attributes:{
+						url:"userInfoManage.jsp"
+					}
+				},{
+					text:"班级信息管理",
+					attributes:{
+						url:"gradeInfoManage.jsp"
+					}
+				},{
+					text:"学生信息管理",
+					attributes:{
+						url:"studentInfoManage.jsp"
+					}
+				}]
 			},{
-				text:"班级信息管理",
-				attributes:{
-					url:"gradeInfoManage.jsp"
-				}
+				text:"人员管理",
+				children:[{
+					text:"ECharts图表",
+					attributes:{
+						url:"echarts.jsp"
+					}
+				},{
+					text:"图片列表",
+					attributes:{
+						url:"jsp/picture_list.jsp"
+					}
+				},{
+					text:"人员列表",
+					attributes:{
+						url:"jsp/people_list.jsp"
+					}
+				}]
 			},{
-				text:"学生信息管理",
-				attributes:{
-					url:"studentInfoManage.jsp"
-				}
+				text:"报表管理",
+				children:[{
+					text:"ECharts图表",
+					attributes:{
+						url:"echarts.jsp"
+					}
+				}]
 			},{
-				text:"ECharts图表",
-				attributes:{
-					url:"echarts.jsp"
-				}
-			},{
-				text:"美女图片列表1",
-				attributes:{
-					url:"jsp/picture_list.jsp"
-				}
-			},{
-				text:"人员列表",
-				attributes:{
-					url:"jsp/people_list.jsp"
-				}
+				text:"接口管理",
+				children:[{
+					text:"ECharts图表",
+					attributes:{
+						url:"echarts.jsp"
+					}
+				}]
 			}]
 		}];
 		
