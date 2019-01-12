@@ -43,6 +43,16 @@
 				attributes:{
 					url:"echarts.jsp"
 				}
+			},{
+				text:"美女图片列表1",
+				attributes:{
+					url:"jsp/picture_list.jsp"
+				}
+			},{
+				text:"人员列表",
+				attributes:{
+					url:"jsp/people_list.jsp"
+				}
 			}]
 		}];
 		

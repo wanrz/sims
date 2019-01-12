@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sims.mapper.PictureMapper" >
+  <resultMap id="BaseResultMap" type="com.sims.model.Picture" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="style" property="style" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="BIGINT" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="people_id" property="peopleId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, style, size, path, people_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from f_picture
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from f_picture
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sims.model.Picture" >
+    insert into f_picture (id, name, style, 
+      size, path, people_id, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{style,jdbcType=VARCHAR}, 
+      #{size,jdbcType=BIGINT}, #{path,jdbcType=VARCHAR}, #{peopleId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sims.model.Picture" >
+    insert into f_picture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="style != null" >
+        style,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+      <if test="peopleId != null" >
+        people_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleId != null" >
+        #{peopleId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sims.model.Picture" >
+    update f_picture
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="style != null" >
+        style = #{style,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=BIGINT},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="peopleId != null" >
+        people_id = #{peopleId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sims.model.Picture" >
+    update f_picture
+    set name = #{name,jdbcType=VARCHAR},
+      style = #{style,jdbcType=VARCHAR},
+      size = #{size,jdbcType=BIGINT},
+      path = #{path,jdbcType=VARCHAR},
+      people_id = #{peopleId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectAllByPage" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM f_picture a
+    <where>
+	    <if test="obj.name != null and obj.name != ''" >
+         and a.name = #{obj.name,jdbcType=VARCHAR} 
+      	</if>
+      	<if test="obj.peopleId != null and obj.peopleId != ''" >
+         and a.people_id = #{obj.peopleId,jdbcType=VARCHAR} 
+      	</if>
+    </where>
+  </select>
+</mapper>
