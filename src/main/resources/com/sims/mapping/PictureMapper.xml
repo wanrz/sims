@@ -128,4 +128,15 @@
       	</if>
     </where>
   </select>
+  
+  <select id="selectAllByPeopleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM f_picture a
+    <where>
+      	<if test="peopleId != null and peopleId != ''" >
+         and a.people_id = #{peopleId,jdbcType=VARCHAR} 
+      	</if>
+    </where>
+  </select>
 </mapper>

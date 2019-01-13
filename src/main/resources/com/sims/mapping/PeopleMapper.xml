@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="VARCHAR" />
     <result column="total" property="total" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
@@ -12,7 +13,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, title, state, total, remark, create_time, update_time
+    id, name, title,picture, state, total, remark, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -25,10 +26,10 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.sims.model.People" >
-    insert into f_people (id, name, title, 
+    insert into f_people (id, name, title, picture,
       state, total, remark, 
       create_time, update_time)
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR}, 
       #{state,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -43,6 +44,9 @@
       </if>
       <if test="title != null" >
         title,
+      </if>
+      <if test="picture != null" >
+        picture,
       </if>
       <if test="state != null" >
         state,
@@ -70,6 +74,9 @@
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
       <if test="state != null" >
         #{state,jdbcType=VARCHAR},
       </if>
@@ -96,6 +103,9 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
       <if test="state != null" >
         state = #{state,jdbcType=VARCHAR},
       </if>
@@ -116,13 +126,32 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sims.model.People" >
     update f_people
-    set name = #{name,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR},
-      total = #{total,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
@@ -135,6 +164,7 @@
          a.name = #{obj.name,jdbcType=VARCHAR} 
       	</if>
     </where>
+    order by create_time desc
   </select>
   
   <select id="findByPeopleName" parameterType="java.lang.String" resultType="People">

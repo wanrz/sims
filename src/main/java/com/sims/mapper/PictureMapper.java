@@ -21,4 +21,6 @@ public interface PictureMapper {
     int updateByPrimaryKey(Picture record);
     
     List<Picture> selectAllByPage(Map<String, Object> map) throws DataAccessException; // 分页查询用户信息功能
+    
+    List<Picture> selectAllByPeopleId(String peopleId) throws DataAccessException;
 }

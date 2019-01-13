@@ -150,6 +150,14 @@
 		</dependency>
 
 		<!-- apache公共包 -->
+		
+		
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.3</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
@@ -272,6 +280,31 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- 添加poi支持 -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>3.10-FINAL</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>commons-codec</artifactId>
+		    		<groupId>commons-codec</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>3.10-FINAL</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<artifactId>xml-apis</artifactId>
+		    		<groupId>xml-apis</groupId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency>
 
 		<!-- 添加jsoup支持 -->
 		<dependency>
@@ -296,5 +329,15 @@
 	</dependencies>
 	<build>
 		<finalName>sims</finalName>
+		<plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 </project>

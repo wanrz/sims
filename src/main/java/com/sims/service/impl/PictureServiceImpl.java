@@ -35,4 +35,14 @@ public class PictureServiceImpl implements PictureService {
 		return pictureMapper.updateByPrimaryKey(record);
 	}
 
+	@Override
+	public Picture selectByPrimaryKey(String id) {
+		return pictureMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Picture> selectAllByPeopleId(String peopleId) {
+		return pictureMapper.selectAllByPeopleId(peopleId);
+	}
+
 }

@@ -64,8 +64,11 @@
     }
 </style>
 <script type="text/javascript">
-	function searchUser(){
+	function searchPicture(){
+		var peopleId=$('#peopleId').val();
+		debugger;
 		$('#dg').datagrid('load',{
+			peopleId:peopleId
 		});
 	}
 	
@@ -78,17 +81,18 @@
 	}
 	
 	$(function() {
-		searchUser();
+		searchPicture();
 	});
 	
 </script>
 </head>
 <body style="margin: 5px;">
+	<input type="hidden" name="peopleId" id="peopleId" value="${peopleId}"/>
 	<table id="dg" class="easyui-datagrid" fitColumns="true"
-	 pagination="true" rownumbers="false" url="${pageContext.request.contextPath}/user/userList" fit="true" >
+	 pagination="true" rownumbers="false" url="${pageContext.request.contextPath}/picture/pictureList" fit="true" >
 		<thead>
 			<tr>
-				<th data-options="field:'picture',width:10, formatter:showImg"></th>
+				<th data-options="field:'path',width:10, formatter:showImg"></th>
 			</tr>
 		</thead>
 	</table>

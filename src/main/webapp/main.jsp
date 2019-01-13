@@ -24,7 +24,7 @@
 		var treeData=[{
 			text:"系统模块",
 			children:[{
-				text:"用户信息管理",
+				text:"用户管理",
 				children:[{
 					text:"用户信息管理",
 					attributes:{
@@ -40,6 +40,11 @@
 					attributes:{
 						url:"studentInfoManage.jsp"
 					}
+				},{
+					text:"图片列表",
+					attributes:{
+						url:"jsp/picture_list.jsp"
+					}
 				}]
 			},{
 				text:"人员管理",
@@ -49,9 +54,9 @@
 						url:"echarts.jsp"
 					}
 				},{
-					text:"图片列表",
+					text:"人员详情",
 					attributes:{
-						url:"jsp/picture_list.jsp"
+						url:"jsp/people_detail.jsp"
 					}
 				},{
 					text:"人员列表",
@@ -61,12 +66,14 @@
 				}]
 			},{
 				text:"报表管理",
-				children:[{
-					text:"ECharts图表",
-					attributes:{
-						url:"echarts.jsp"
+				children:[
+				    {
+						text:"ECharts图表",
+						attributes:{
+							url:"echarts.jsp"
+						},
 					}
-				}]
+				]
 			},{
 				text:"接口管理",
 				children:[{
@@ -74,6 +81,24 @@
 					attributes:{
 						url:"echarts.jsp"
 					}
+				}]
+			},{
+				text:"文件管理",
+				children:[{
+					text:"大文件上传",
+					attributes:{
+						url:"jsp/file/bigFileUpload.jsp"
+					},
+				},{
+					text:"大文件上传(旧)",
+					attributes:{
+						url:"jsp/file/bigFileUploadOld.jsp"
+					},
+				},{
+					text:"单文件上传",
+					attributes:{
+						url:"jsp/file/singleUpload.jsp"
+					},
 				}]
 			}]
 		}];
@@ -102,6 +127,7 @@
 				});
 			}
 		}
+		
 	});
 </script>
 <script type="text/javascript">

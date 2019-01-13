@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.sims.common.util.BaseConstants;
+import com.sims.common.util.UUIDUtil;
 import com.sims.common.util.http.HttpsRequestProxy;
 /**
  * Project Name：abc-ibis20170115  <br/>
@@ -44,6 +47,8 @@ public class FileUtils {
 	public static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 	
 	private static final int BUF_SIZE = 8096;
+	
+	private static final String FILE_SEPARATOR = "/";
 
 	/**
 	 * CheckFolder:检查文件夹
@@ -412,6 +417,31 @@ public class FileUtils {
 				}
 			}
 			path = temp;
+		return path;
+	}
+	
+	
+	/**  
+	 * <p>Title: getDateFilePath</p>  
+	 * <p>Description:获取日期路径 </p>  
+	 * @param fileName 文件名称
+	 * @param fileType 文件后缀
+	 * @return string  
+	 */  
+	public static String getDateFilePath(String fileName,String fileType) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DATE);
+		if(StringUtils.isEmpty(fileName)){
+			fileName=UUIDUtil.getUUID();
+		}
+		if(StringUtils.isEmpty(fileType)){
+			fileType=".jpg";
+		}
+		String path = FILE_SEPARATOR + year + FILE_SEPARATOR + month + FILE_SEPARATOR + day + FILE_SEPARATOR
+				+ fileName + fileType;
 		return path;
 	}
 

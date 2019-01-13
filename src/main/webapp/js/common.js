@@ -1,3 +1,42 @@
+//新增顶层Tab 已存在则选种、不再打开
+function openTopTab(title,url){    
+    var jq = top.jQuery;    
+    if (jq("#layout_center_tabs").tabs('exists', title)){    
+        jq("#layout_center_tabs").tabs('select', title);    
+    } else {  
+         var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';     
+          jq("#layout_center_tabs").tabs('add',{    
+            title:title,    
+            content:content,    
+            closable:true    
+          });    
+     }    
+}  
+//新增顶层Tab 总是打开
+function openTopNewTab(title,url){    
+      var jq = top.jQuery;    
+	  var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';     
+	  jq("#layout_center_tabs").tabs('add',{    
+	    title:title,    
+	    content:content,    
+	    closable:true    
+	  });    
+} 
+
+//新增顶层Tab 总是打开
+function openTopNewTabCloseTab(title,url){    
+      var jq = top.jQuery;    
+      if (jq("#layout_center_tabs").tabs('exists', title)){ 
+		jq("#layout_center_tabs").tabs('close', title);
+  	  }
+	  var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';     
+	  jq("#layout_center_tabs").tabs('add',{    
+	    title:title,    
+	    content:content,    
+	    closable:true    
+	  });    
+} 
+
 /**
  * 检查文件类型
  * @param fileName

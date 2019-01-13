@@ -20,4 +20,8 @@ public interface PictureService {
 	int updateByPrimaryKey(Picture record);
 
 	List<Picture> selectPictureByPage(Map<String, Object> map);
+	
+	Picture selectByPrimaryKey(String id);
+	
+	List<Picture> selectAllByPeopleId(String peopleId);
 }

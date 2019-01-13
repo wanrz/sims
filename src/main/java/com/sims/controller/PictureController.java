@@ -17,7 +17,6 @@ import org.apache.commons.net.util.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
@@ -33,36 +32,28 @@ import com.sims.common.util.ImgConvertByteArray;
 import com.sims.common.util.JsonUtil;
 import com.sims.common.util.UUIDUtil;
 import com.sims.common.util.file.FileUtils;
-import com.sims.model.People;
-import com.sims.service.PeopleService;
+import com.sims.model.Picture;
+import com.sims.service.PictureService;
 
 @Controller
-@RequestMapping("/people")
-public class PeopleController extends BaseController {
+@RequestMapping("/picture")
+public class PictureController extends BaseController {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private static final String FILE_SEPARATOR = "/";
 	
-	@Resource(name = "peopleService")
-	private PeopleService peopleService;
-	
-	@RequestMapping("/detail")
-	public String detail(HttpServletResponse response,Model model,String id) throws Exception {
-		model.addAttribute("peopleId", id);
-		return "jsp/people_detail";
-	}
+	@Resource(name = "pictureService")
+	private PictureService pictureService;
 
-	@RequestMapping("/peopleList")
-	public void PeopleList(HttpServletRequest request, HttpServletResponse response, People record) {
-		JsonListResult<People> result = new JsonListResult<People>();
+	@RequestMapping("/pictureList")
+	public void pictureList(HttpServletRequest request, HttpServletResponse response, Picture record) {
+		JsonListResult<Picture> result = new JsonListResult<Picture>();
 		// 返回结果
 		String retJson = "";
 		// 设置参数信息
-		String name = request.getParameter("name");
-		if (name == null) {
-			name = "";
+		if(record.getName()==null && record.getPeopleId()==null){
+			return;
 		}
-		record.setName(name);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("obj", record);
 //		map.put("page", pageInfo);
@@ -70,27 +61,27 @@ public class PeopleController extends BaseController {
 		// 设置分页查询
 		PageHelper.startPage(Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("rows")));//currentPage 当前页码，rows 每页量
 		PageHelper.orderBy("id desc");//排序
-		List<People> list = this.peopleService.selectPeopleByPage(map);
+		List<Picture> list = this.pictureService.selectPictureByPage(map);
 		// 设置返回结果
 		result.setRows(list);
-        PageInfo<People> pageInfo1 = new PageInfo<>(list);
+        PageInfo<Picture> pageInfo1 = new PageInfo<>(list);
 		result.setTotal(pageInfo1.getTotal());
 		retJson = JsonUtil.toJSON(result);
 		this.getPrintWriter(response, retJson);
 	}
 	
-	@RequestMapping("/peopleComboList")
-	public void PeopleComboList(HttpServletRequest request, HttpServletResponse response, People record) {
+	@RequestMapping("/pictureComboList")
+	public void pictureComboList(HttpServletRequest request, HttpServletResponse response, Picture record) {
 		// 返回结果
 		String retJson = "";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("obj", record);
 		// 设置分页查询
-		List<People> list = this.peopleService.selectPeopleByPage(map);
-		People people=new People();
-		people.setId("0");
-		people.setName("请选择...");
-		list.add(people);
+		List<Picture> list = this.pictureService.selectPictureByPage(map);
+		Picture picture=new Picture();
+		picture.setId("0");
+		picture.setName("请选择...");
+		list.add(picture);
 //		Collections.sort(list); // 按年龄排序
 		// 设置返回结果
 		retJson = JsonUtil.toJSON(list);
@@ -98,53 +89,45 @@ public class PeopleController extends BaseController {
 	}
 	
 	
-	@RequestMapping("/peopleSave")
-	public void PeopleSave(HttpServletRequest request, HttpServletResponse response, People record) {
+	@RequestMapping("/pictureSave")
+	public void pictureSave(HttpServletRequest request, HttpServletResponse response, Picture record) {
 		// 返回结果
 		JSONObject result=new JSONObject();
 		String base64Img = "";
-		//校验是否已存在
-		People people=peopleService.findByPeopleName(record.getName());
-		if(people==null){
-			// 保存图片
-			base64Img = request.getParameter("people_feature_file");
-			if (StringUtils.isNotEmpty(base64Img)) {
-				String imgPath = saveImg(base64Img);
-				record.setPicture(imgPath);
-			}
-			record.setId(UUIDUtil.getUUID());
-			record.setCreateTime(new Date());
-			int res=this.peopleService.insert(record);
-			if(res<0){
-				result.put("success", "true");
-				result.put("errorMsg", "保存失败");
-			}else{
-				result.put("success", "true");
-			}
+		// 保存图片
+		base64Img = request.getParameter("picture_feature_file");
+		if (StringUtils.isNotEmpty(base64Img)) {
+			String imgPath = saveImg(base64Img);
+			record.setPath(imgPath);
+		}
+		record.setId(UUIDUtil.getUUID());
+		record.setCreateTime(new Date());
+		int res=this.pictureService.insert(record);
+		if(res<0){
+			result.put("success", "true");
+			result.put("errorMsg", "保存失败");
 		}else{
 			result.put("success", "true");
-			result.put("errorMsg", "用户已存在");
 		}
 		
 		this.getPrintWriter(response, result);
 	}
 	
-	@RequestMapping("/peopleUpdate")
-	public void PeopleUpdate(HttpServletRequest request, HttpServletResponse response, People record) {
-		JsonListResult<People> result = new JsonListResult<People>();
+	@RequestMapping("/pictureUpdate")
+	public void pictureUpdate(HttpServletRequest request, HttpServletResponse response, Picture record) {
+		JsonListResult<Picture> result = new JsonListResult<Picture>();
 		// 返回结果
 		String retJson = "";
 		String base64Img = "";
 		String id=request.getParameter("id");
 		record.setId(id);
 		// 保存图片
-		base64Img = request.getParameter("people_feature_file");
+		base64Img = request.getParameter("picture_feature_file");
 		if (StringUtils.isNotEmpty(base64Img)) {
 			String imgPath = saveImg(base64Img);
-			record.setPicture(imgPath);
+			record.setPath(imgPath);
 		}
-		record.setUpdateTime(new Date());
-		int res=this.peopleService.updateByPrimaryKey(record);
+		int res=this.pictureService.updateByPrimaryKey(record);
 		if(res<0){
 			result.setMessage("更新失败");
 		}
@@ -152,22 +135,22 @@ public class PeopleController extends BaseController {
 		this.getPrintWriter(response, retJson);
 	}
 	
-	@RequestMapping("/peopleDelete")
-	public void PeopleDelete(HttpServletRequest request, HttpServletResponse response, String delIds) {
-		JsonListResult<People> result = new JsonListResult<People>();
+	@RequestMapping("/pictureDelete")
+	public void pictureDelete(HttpServletRequest request, HttpServletResponse response, String delIds) {
+		JsonListResult<Picture> result = new JsonListResult<Picture>();
 		// 返回结果
 		String retJson = "";
 		String str[]=delIds.split(",");
 		long delNums = 0;
 		for(String id:str){
-//			boolean f=studentDao.getStudentByPeopleId(con, str[i]);
+//			boolean f=studentDao.getStudentBypictureId(con, str[i]);
 //			if(f){
 //				result.put("errorIndex", i);
 //				result.put("errorMsg", "班级下面有学生，不能删除！");
 //				ResponseUtil.write(response, result);
 //				return;
 //			}
-			delNums=delNums+this.peopleService.deleteByPrimaryKey(id);
+			delNums=delNums+this.pictureService.deleteByPrimaryKey(id);
 		}
 		result.setSuccess(true);
 		result.setTotal(delNums);
