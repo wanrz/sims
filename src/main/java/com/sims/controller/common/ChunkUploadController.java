@@ -28,11 +28,6 @@ import com.sims.service.PictureService;
 /**
  * ClassName: ChunkUploadController <br/>
  * Description: 切片上传控制器. <br/>
- * date: 2016年11月17日 上午9:58:34 <br/>
- *
- * @author 杨皓
- * @version 1.0.0
- * @since JDK 1.7
  */
 @Controller
 @RequestMapping("/chunkUpload")
