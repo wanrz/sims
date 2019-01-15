@@ -2,7 +2,6 @@ package com.sims.common.exception;
 
 /**
  * 基本异常
- * @author liaoyanbo
  * @Date 2017-12-19 20:05
  * @since 1.6
  */
