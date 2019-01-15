@@ -9,7 +9,6 @@ import com.sims.common.exception.CheckException;
 /**
  * 校验工具类
  *
- * @author liaoyanbo
  * @Date 2017-12-26 17:06
  * @since 1.6
  */
