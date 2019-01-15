@@ -2,14 +2,12 @@ package com.sims.common.enums;
 
 /**
  * 枚举类
- * @author zhuyf
  *
  */
 public class EnumClass {
 
 	/**
 	 * 加密类型枚举
-	 * @author zhuyf
 	 *
 	 */
 	public enum EncryptTypeEnum {
@@ -33,7 +31,6 @@ public class EnumClass {
 	
 	/**
 	 * 缓存类型枚举
-	 * @author zhuyf
 	 *
 	 */
 	public enum CacheTypeEnum {
