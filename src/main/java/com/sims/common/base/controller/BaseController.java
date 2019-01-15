@@ -29,17 +29,6 @@ import com.sims.common.util.ObjectUtils;
 import com.sims.common.util.RequestUtil;
 import com.sims.model.User;
 
-/**
- * ClassName:BaseController <br/>
- * Description: 公共控制类，所有的控制类都要继承此类 <br/>
- * Date: 2014年11月20日 上午11:30:14 <br/>
- *
- * @author 焦少平
- * @version 1.0
- * @since JDK 1.7
- * @see
- */
-
 public class BaseController {
 	
 	protected final Logger log = Logger.getLogger(this.getClass());
