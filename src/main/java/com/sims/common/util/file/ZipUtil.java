@@ -1,12 +1,3 @@
-/**
- * Project Name:cloudwalk-common
- * File Name:ZipUtil.java
- * Package Name:cn.cloudwalk.common.file.zip
- * Date:2016年8月12日上午10:11:30
- * Copyright @ 2010-2016 重庆中科云丛科技有限公司  All Rights Reserved.
- *
-*/
-
 package com.sims.common.util.file;
 
 import java.io.BufferedInputStream;
@@ -27,16 +18,6 @@ import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * ClassName:ZipUtil <br/>
- * Description: 提供压缩和解压等常用操作. <br/>
- * Date: 2016年8月12日 上午10:11:30 <br/>
- * 
- * @author 李强
- * @version
- * @since JDK 1.7
- * @see
- */
 public class ZipUtil {
 	
 	private static Logger logger = LoggerFactory.getLogger(ZipUtil.class);
@@ -46,15 +27,7 @@ public class ZipUtil {
 
 	static final int BUFFER = 2048;
 
-	/**
-	 * 
-	 * zip:压缩文件夹. <br/>
-	 *
-	 * @author:李强 Date: 2016年8月12日 上午10:21:54
-	 * @param folder
-	 * @param zipFile
-	 * @since JDK 1.7
-	 */
+	
 	public static void zip(File folder, File zipFile) {
 
 //		BufferedInputStream origin = null;
@@ -98,15 +71,7 @@ public class ZipUtil {
 //			IOUtils.closeQuietly(out2);
 		}
 	}
-	/**
-	 * 
-	 * unzip:解压文件夹. <br/>
-	 *
-	 * @author:李强 Date: 2016年8月12日 上午10:22:25
-	 * @param zip
-	 * @param folder
-	 * @since JDK 1.7
-	 */
+
 	public static void unzip2(File zip, File folder) {
 		ZipFile zipFile = null;
 		InputStream inputStream = null;
@@ -156,15 +121,7 @@ public class ZipUtil {
 			IOUtils.closeQuietly(inputStream);
 		}
 	}
-	/**
-	 * 
-	 * unzip:解压文件夹. <br/>
-	 *
-	 * @author:李强 Date: 2016年8月12日 上午10:22:25
-	 * @param zip
-	 * @param folder
-	 * @since JDK 1.7
-	 */
+
 	public static void unzip(File zip, File folder) {
 		ZipFile zipFile = null;
 		InputStream inputStream = null;
