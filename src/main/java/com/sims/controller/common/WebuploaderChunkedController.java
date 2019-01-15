@@ -41,48 +41,6 @@ import com.sims.common.ResultEntity;
 import com.sims.common.enums.GlobalMessage;
 import com.sims.common.util.Constants;
 
-/**
- * 
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="id"<br/>
- * <br/>
- * WU_FILE_0<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="name"<br/>
- * <br/>
- * FPServiceWR(1).zip<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="type"<br/>
- * <br/>
- * application/x-zip-compressed<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="lastModifiedDate"<br/>
- * <br/>
- * 2019/1/9 ä¸å12:52:21<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="size"<br/>
- * <br/>
- * 35748990<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="chunks"<br/>
- * <br/>
- * 69<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="chunk"<br/>
- * <br/>
- * 64<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="md5value"<br/>
- * <br/>
- * fd0cf9c81da59bc1c5b0af644aba36c4<br/>
- * -----------------------------124011726524790<br/>
- * Content-Disposition: form-data; name="file";
- * filename="FPServiceWR(1).zip"<br/>
- * Content-Type: application/octet-stream<br/>
- * 
- * @author YCKJ0224
- *
- */
 @Controller
 @RequestMapping("/bigfile")
 public class WebuploaderChunkedController {
