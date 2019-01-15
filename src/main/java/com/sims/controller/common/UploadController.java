@@ -39,7 +39,7 @@ import com.sims.service.PictureService;
  * <p>ClassName: UploadController</p>
  * Description:单文件上传<br/>
  * @date 2019年1月13日 下午12:30:16 
- * @author yckj0914@cloudwalk.cn
+ * @author wanrz
  * @version 1.0
  * @since JDK 1.7
  */ 
