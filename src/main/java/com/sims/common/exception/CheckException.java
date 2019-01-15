@@ -3,7 +3,6 @@ package com.sims.common.exception;
 /**
  * 校验异常
  *
- * @author liaoyanbo
  * @Date 2017-12-26 17:10
  * @since 1.6
  */
