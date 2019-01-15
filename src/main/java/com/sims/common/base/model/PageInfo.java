@@ -8,8 +8,6 @@ import java.util.List;
  * ClassName:PageParameter <br/>
  * Description: 分页对象 <br/>
  * Date: 2014年12月18日 下午5:16:55 <br/>
- *
- * @author 焦少平
  * @version 1.0
  * @since JDK 1.7
  * @see
