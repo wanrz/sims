@@ -1,11 +1,3 @@
-/**
- * Project Name:cloudwalk-common
- * File Name:RequestUtil.java
- * Package Name:cn.cloudwalk.common.net
- * Date:2016年3月19日下午3:28:33
- * Copyright @ 2010-2016 Cloudwalk Information Technology Co.Ltd  All Rights Reserved.
- *
-*/
 
 package com.sims.common.util;
 
@@ -18,15 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-/**
- * ClassName:RequestUtil <br/>
- * Description: Request工具类. <br/>
- * Date: 2016年3月19日 下午3:28:33 <br/>
- *
- * @author 陈腾
- * @version 1.0.0
- * @since JDK 1.7
- */
+
 public class RequestUtil {
 	
 	private RequestUtil(){
