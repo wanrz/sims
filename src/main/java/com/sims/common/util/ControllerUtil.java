@@ -25,7 +25,6 @@ import com.sims.common.util.file.FileUtils;
 
 /**
  * controller层工具类
- * @author zhuyf
  *
  */
 public class ControllerUtil {	
