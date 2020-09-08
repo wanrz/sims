@@ -6,7 +6,6 @@ import com.sims.service.FruitService;
  * <p>ClassName: Client</p>
  * Description:IOC容器实现机制<br/>
  * @date 2018年12月27日 上午10:17:27 
- * @author yckj0914
  * @version 1.0
  * @since JDK 1.7
  */ 
